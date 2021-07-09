@@ -3,7 +3,7 @@ from django.contrib.auth.models import User
 from django.db import models
 
 class Vendor(models.Model):
-    name = models.CharField(max_length=255,unique=True)
+    name = models.CharField(max_length=255)
     email = models.EmailField(unique=True, default='null')
     password = models.CharField(max_length=15)
     created_at = models.DateTimeField(auto_now_add=True)
@@ -26,7 +26,7 @@ class Vendor(models.Model):
         return sum((item.product.price * item.quantity) for item in items)
 
 class Customer(models.Model):
-    name = models.CharField(max_length=255,unique=True)
+    name = models.CharField(max_length=255)
     email = models.EmailField(unique=True, default='null')
     password = models.CharField(max_length=15)
     created_at = models.DateTimeField(auto_now_add=True)
