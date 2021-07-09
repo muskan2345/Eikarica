@@ -1,6 +1,9 @@
+from collections import ChainMap
 from django.contrib.auth.forms import PasswordChangeForm
 from django.contrib.auth.models import User
 from django.db import models
+from django.db.models.fields import CharField
+from django.db.models.fields.files import ImageField
 
 class Vendor(models.Model):
     name = models.CharField(max_length=255)
@@ -40,3 +43,4 @@ class Customer(models.Model):
 
     def __str__(self):
         return self.name    
+
