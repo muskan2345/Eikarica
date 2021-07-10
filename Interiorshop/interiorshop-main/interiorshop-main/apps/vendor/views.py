@@ -6,7 +6,7 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.http import HttpResponseRedirect, HttpResponse
 from django.contrib.auth import authenticate, login, logout
 from .models import Vendor,Customer
-from apps.product.models import Product, ProductImage
+from apps.product.models import Product, ProductImage,Category
 from django.contrib.auth.models import User
 from django.contrib import messages
 
@@ -123,21 +123,7 @@ def vendor_admin(request):
 @login_required
 def add_product(request):
     if request.method == 'POST':
-    #     if request.POST.get('category') and request.POST.get('title') and request.POST.get('description') and request.POST.get('price') and request.POST.get('image'):
-    #         product=Product()
-    #         product.category= request.POST.get('category')
-    #         product.title= request.POST.get('title')
-    #         product.description= request.POST.get('description')
-    #         product.price= request.POST.get('price')
-    #         product.image=request.POST.get('image')
-    #         product.save()
-    #         messages.success(request,'record is saved' )
-    #     else:
-    #         messages.success(request,'record is  not saved' )   
 
-
-    #         return redirect('vendor_admin')
-    # else:
 
         form = ProductForm(request.POST)
 
@@ -147,10 +133,12 @@ def add_product(request):
             product.slug = slugify(product.title)
             product.save()
 
+         
             return redirect('vendor_admin')
+
     else:
         form = ProductForm()
-    
+
     return render(request, 'vendor/add_product.html',{'form':form})
 
 @login_required
