@@ -4,18 +4,18 @@
 
 {% block content %}
     <h1 class="title">Edit Password </h1>
-
-    <form method="post" action=".">
+ 
+    <form method="post" action="{% url 'edit_vendor' %}">
         {% csrf_token %}
 
-        <div class="field">
+    <div class="field">
             <label>Vendor name</label>
 
             <div class="control">
                 <input type="text" name="name" id="id_name" value="{{ vendor.name }}" class="input">
             </div>
 
-            <p class="help">This is not the same as the username!</p>
+           
         </div>
 
         <div class="field">
@@ -24,9 +24,9 @@
             <div class="control">
                 <input type="email" name="email" id="id_email" value="{{ vendor.created_by.email }}" class="input">
             </div>
-        </div>
-        <!-- <div class="field">
-            <label>Old Password</label>
+        </div> 
+         <div class="field">
+            <label> Password</label>
 
             <div class="control">
                 <input type="password" name="password" id="id_password"  class="input">
@@ -38,13 +38,19 @@
             <div class="control">
                 <input type="password" name="rpassword" id="id_password"  class="input">
             </div>
-        </div>
-       -->
+        </div>    
+        <div class="field">
+            <label> Confirm Password</label>
+
+            <div class="control">
+                <input type="password" name="confirm_password" id="id_password"  class="input">
+            </div>
+        </div>      
        
-       {{form.as_p}}
+       <!-- {{form.as_p}} -->
         <div class="field">
             <div class="control">
-                <button class="button is-dark is-uppercase">Save changes</button>
+                <input type="submit" class="button is-dark is-uppercase" value="save change" />
             </div>
         </div>
         <a href="{% url 'logout' %}" class="button is-danger is-uppercase">Log out</a>

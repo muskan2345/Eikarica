@@ -170,33 +170,37 @@ def edit_product(request, pk):
 @login_required
 def edit_vendor(request):
     vendor = request.user.vendor
-
+    print("test00")
     if request.method == 'POST':
-        name = request.POST.get('name', '')
-        email = request.POST.get('email', '')
-        
+        name = request.POST.get('name')
+        email = request.POST.get('email')
+        print("test0")
+        #loginid = request.POST.get('loginid')
         if name:
             vendor.created_by.email = email
             vendor.created_by.save()
 
             vendor.name = name
             vendor.save()
-           
-
-        fm=PasswordChangeForm(user=request.user,data=request.POST)
-        if fm.is_valid():
-            fm.save()
-
+            print("test1")
+        password = request.POST.get('password')
+        rpassword=request.POST.get('rpassword')
+        confirm_password=request.POST.get('confirm_password')
+        if password == vendor.password:
+            if rpassword==confirm_password:
+                vendor.password=rpassword
+                vendor.save()
+                
             return redirect('user_login')
-    else:
-        messages.error(request,"not saved")        
-        fm=PasswordChangeForm(user=request.user)   
+        else:
+            messages.error(request,"not saved")        
+        #fm=PasswordChangeForm(user=request.user)   
 
 
             #return redirect('vendor_admin')
     
-    #return render(request, 'vendor/edit_vendor.html', {'vendor': vendor})
-    return render(request, 'vendor/edit_vendor.html', {'vendor':vendor,'form':fm})
+    return render(request, 'vendor/edit_vendor.html', {'vendor':vendor})
+    #return render(request, 'vendor/edit_vendor.html', {})
 
 def vendors(request):
     vendors = Vendor.objects.all()
