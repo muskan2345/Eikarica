@@ -123,22 +123,41 @@ def vendor_admin(request):
 @login_required
 def add_product(request):
     if request.method == 'POST':
-
-
         form = ProductForm(request.POST)
+        # if form.is_valid():
+        #     product = form.save(commit=False)
+        #     product.vendor = request.user.vendor
+        #     product.slug = slugify(product.title)
+        #     product.save()
 
-        if form.is_valid():
-            product = form.save(commit=False)
-            product.vendor = request.user.vendor
-            product.slug = slugify(product.title)
-            product.save()
+        #     return redirect('vendor_admin')
+        # if request.POST.get('category') and request.POST.get('title') and request.POST.get('description') and request.POST.get('price') and request.POST.get('image'):
+        product = form.save(commit=False)
+            # product.category= request.POST.get('category')
+        product.title= request.POST.get('title')
+        product.description= request.POST.get('description')
+        product.price= request.POST.get('price')
+        product.image=request.FILES.get('image')
+        product.vendor = request.user.vendor
+        product.slug = slugify(product.title)
+        product.save()
+        return redirect('vendor_admin')
+        #     messages.success(request,'record is saved' )
+        # else:
+        #     messages.success(request,'record is  not saved' )   
+        #     return redirect('vendor_admin')
+    # else:
 
-         
-            return redirect('vendor_admin')
+    #     form = ProductForm(request.POST)
 
-    else:
-        form = ProductForm()
+    #     if form.is_valid():
+    #         product = form.save(commit=False)
+    #         product.vendor = request.user.vendor
+    #         product.slug = slugify(product.title)
+    #         product.save()
 
+    #         return redirect('vendor_admin')
+    form = ProductForm()
     return render(request, 'vendor/add_product.html',{'form':form})
 
 @login_required
