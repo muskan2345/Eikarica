@@ -1,6 +1,6 @@
 from django.contrib.auth import login
 from django.contrib.auth.decorators import login_required
-from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth.forms import PasswordChangeForm, UserCreationForm
 from django.utils.text import slugify
 from django.shortcuts import render, redirect, get_object_or_404
 from django.http import HttpResponseRedirect, HttpResponse
@@ -174,17 +174,29 @@ def edit_vendor(request):
     if request.method == 'POST':
         name = request.POST.get('name', '')
         email = request.POST.get('email', '')
-
+        
         if name:
             vendor.created_by.email = email
             vendor.created_by.save()
 
             vendor.name = name
             vendor.save()
+           
 
-            return redirect('vendor_admin')
+        fm=PasswordChangeForm(user=request.user,data=request.POST)
+        if fm.is_valid():
+            fm.save()
+
+            return redirect('user_login')
+    else:
+        messages.error(request,"not saved")        
+        fm=PasswordChangeForm(user=request.user)   
+
+
+            #return redirect('vendor_admin')
     
-    return render(request, 'vendor/edit_vendor.html', {'vendor': vendor})
+    #return render(request, 'vendor/edit_vendor.html', {'vendor': vendor})
+    return render(request, 'vendor/edit_vendor.html', {'vendor':vendor,'form':fm})
 
 def vendors(request):
     vendors = Vendor.objects.all()

@@ -9,6 +9,7 @@ class Vendor(models.Model):
     name = models.CharField(max_length=255)
     email = models.EmailField(unique=True, default='null')
     password = models.CharField(max_length=15)
+    #rpassword=models.CharField(max_length=15,null=False)
     created_at = models.DateTimeField(auto_now_add=True)
     created_by = models.OneToOneField(User, related_name='vendor', on_delete=models.CASCADE)
 

@@ -1,9 +1,9 @@
 {% extends 'core/base.html' %}
 
-{% block title %}Edit vendor | {% endblock %}
+{% block title %}Edit Password | {% endblock %}
 
 {% block content %}
-    <h1 class="title">Edit vendor</h1>
+    <h1 class="title">Edit Password </h1>
 
     <form method="post" action=".">
         {% csrf_token %}
@@ -25,11 +25,28 @@
                 <input type="email" name="email" id="id_email" value="{{ vendor.created_by.email }}" class="input">
             </div>
         </div>
+        <!-- <div class="field">
+            <label>Old Password</label>
 
+            <div class="control">
+                <input type="password" name="password" id="id_password"  class="input">
+            </div>
+        </div>
+        <div class="field">
+            <label> Change Password</label>
+
+            <div class="control">
+                <input type="password" name="rpassword" id="id_password"  class="input">
+            </div>
+        </div>
+       -->
+       
+       {{form.as_p}}
         <div class="field">
             <div class="control">
                 <button class="button is-dark is-uppercase">Save changes</button>
             </div>
         </div>
+        <a href="{% url 'logout' %}" class="button is-danger is-uppercase">Log out</a>
     </form>
 {% endblock %}

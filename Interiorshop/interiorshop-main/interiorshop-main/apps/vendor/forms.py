@@ -14,3 +14,5 @@ class ProductImageForm(ModelForm):
     class Meta:
         model = ProductImage
         fields = ['image']
+
+         
