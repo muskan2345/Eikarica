@@ -205,12 +205,18 @@ def edit_vendor(request):
         password = request.POST.get('password')
         rpassword=request.POST.get('rpassword')
         confirm_password=request.POST.get('confirm_password')
+        print(password)
+        print(rpassword)
+        print(confirm_password)
+        print(vendor.password)
         if password == vendor.password:
+            print("test2")
             if rpassword==confirm_password:
                 vendor.password=rpassword
                 vendor.save()
-                
-            return redirect('user_login')
+                print("test2")
+                logout(request)
+                return redirect('user_login')
         else:
             messages.error(request,"not saved")        
         #fm=PasswordChangeForm(user=request.user)   
