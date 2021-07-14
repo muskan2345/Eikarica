@@ -161,30 +161,29 @@ def add_product(request):
     return render(request, 'vendor/add_product.html',{'form':form})
 
 @login_required
-def edit_product(request, pk):
+def edit_vendor(request):
     vendor = request.user.vendor
-    product = vendor.products.get(pk=pk)
-
+    print("test00")
     if request.method == 'POST':
-        form = ProductForm(request.POST, request.FILES, instance=product)
-        image_form = ProductImageForm(request.POST, request.FILES)
-
-        if image_form.is_valid():
-            productimage = image_form.save(commit=False)
-            productimage.product = product
-            productimage.save()
-
-            return redirect('vendor_admin')
-
-        if form.is_valid():
-            form.save()
-
-            return redirect('vendor_admin')
-    else:
-        form = ProductForm(instance=product)
-        image_form = ProductImageForm()
+        name = request.POST.get('name')
+        email = request.POST.get('email')
+        password = request.POST.get('password')
+        rpassword=request.POST.get('rpassword')
+        confirm_password=request.POST.get('confirm_password')
+        if password == vendor.password:
+            if rpassword==confirm_password:
+                vendor.created_by.delete()
+                user = User.objects.create_user(name, email, rpassword)
+                vendor = Vendor(name=name, email=email, password=rpassword, created_by=user)
+                vendor.save()
+                logout(request)
+                return redirect('user_login')
+        else:
+            messages.error(request,"not saved")
+            #return redirect('vendor_admin')
     
-    return render(request, 'vendor/edit_product.html', {'form': form, 'image_form': image_form, 'product': product})
+    return render(request, 'vendor/edit_vendor.html', {'vendor':vendor})
+    #return render(request, 'vendor/edit_vendor.html', {})
 
 @login_required
 def edit_vendor(request):
