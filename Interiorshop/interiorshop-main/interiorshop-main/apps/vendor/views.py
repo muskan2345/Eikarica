@@ -1,4 +1,4 @@
-from django.contrib.auth import login
+from django.contrib.auth import login, update_session_auth_hash
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.forms import PasswordChangeForm, UserCreationForm
 from django.utils.text import slugify
@@ -192,35 +192,19 @@ def edit_vendor(request):
     if request.method == 'POST':
         name = request.POST.get('name')
         email = request.POST.get('email')
-        print("test0")
-        #loginid = request.POST.get('loginid')
-        if name:
-            vendor.created_by.email = email
-            vendor.created_by.save()
-
-            vendor.name = name
-            vendor.save()
-            print("test1")
         password = request.POST.get('password')
         rpassword=request.POST.get('rpassword')
         confirm_password=request.POST.get('confirm_password')
-        print(password)
-        print(rpassword)
-        print(confirm_password)
-        print(vendor.password)
         if password == vendor.password:
-            print("test2")
             if rpassword==confirm_password:
-                vendor.password=rpassword
+                vendor.created_by.delete()
+                user = User.objects.create_user(name, email, rpassword)
+                vendor = Vendor(name=name, email=email, password=rpassword, created_by=user)
                 vendor.save()
-                print("test2")
                 logout(request)
                 return redirect('user_login')
         else:
-            messages.error(request,"not saved")        
-        #fm=PasswordChangeForm(user=request.user)   
-
-
+            messages.error(request,"not saved")
             #return redirect('vendor_admin')
     
     return render(request, 'vendor/edit_vendor.html', {'vendor':vendor})
