@@ -132,7 +132,7 @@ def add_product(request):
         product.price= request.POST.get('price')
         product.image=request.FILES.get('image')
         product.vendor = request.user.vendor
-       
+
         str=product.title + "-" + product.vendor.name
         product.slug = slugify(str)
         product.save()
@@ -147,8 +147,8 @@ def edit_product(request,pk):
     product = vendor.products.get(pk=pk) 
     print(request.FILES.get('image'))
     if request.method == 'POST':
-       
-        print(product)
+
+        # print(product)
         form = ProductForm(request.POST,instance=product)
         
         product = form.save(commit=False)
@@ -159,8 +159,10 @@ def edit_product(request,pk):
         image=request.FILES.get('image')
         if (image!=None):
             product.image=image
-        product.vendor =vendor
-        product.slug = slugify(product.title)
+        product.vendor = vendor
+
+        str1=product.title + "-" + product.vendor.name
+        product.slug = slugify(str1)
         product.save()
         return redirect('vendor_admin')
     form = ProductForm(instance=product)    
@@ -184,15 +186,15 @@ def edit_vendor(request):
     print(type(product))
     list1=list(product)
     print(list1)
-     #product=product.objects.all().values('vendor')
-   
+    #product=product.objects.all().values('vendor')
+
     if request.method == 'POST':
         name = request.POST.get('name')
         email = request.POST.get('email')
         password = request.POST.get('password')
         rpassword=request.POST.get('rpassword')
         confirm_password=request.POST.get('confirm_password')
-       
+
         if password == vendor.password:
             
             if rpassword==confirm_password:
@@ -218,8 +220,8 @@ def edit_vendor(request):
     #return render(request, 'vendor/edit_vendor.html', {})
 
 def edit_customer(request):
-     customer = request.user.customer
-     if request.method == 'POST':
+    customer = request.user.customer
+    if request.method == 'POST':
         name = request.POST.get('name')
         email = request.POST.get('email')
         password = request.POST.get('password')
@@ -244,7 +246,7 @@ def edit_customer(request):
         else:
             messages.error(request,"not saved")
             #return redirect('vendor_admin')
-     return render(request, 'vendor/edit_customer.html', {'customer':customer})        
+    return render(request, 'vendor/edit_customer.html', {'customer':customer})        
 
 
 

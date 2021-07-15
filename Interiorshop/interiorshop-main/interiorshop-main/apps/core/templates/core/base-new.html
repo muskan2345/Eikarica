@@ -61,14 +61,14 @@
                         <form method="get" action="{% url 'search' %}">
 						<li class="search">
 							<div class="input-group">
-                                <input type="text" placeholder="Search..">
+                                <input type="text" placeholder="Search.." name = "query">
                                 <span class="input-group-btn">
                                     <button class="btn btn-primary" type="button"><i class="icon-search"></i></button>
                                 </span>
                             </div>
 						</li>
                         </form>
-						<li class="shopping-cart"><a href="{% url 'cart' %}" class="cart"><span><small>0</small><i class="icon-shopping-cart"></i></span></a></li>
+						<li class="shopping-cart"><a href="{% url 'cart' %}" class="cart"><span><small>{% if cart %} ({{ cart|length }}){% endif %}</small><i class="icon-shopping-cart"></i></span></a></li>
 					</ul>
 				</div>
 			</div>
