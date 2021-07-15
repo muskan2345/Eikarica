@@ -185,7 +185,7 @@ def edit_product(request, pk):
         image_form = ProductImageForm()
     
     return render(request, 'vendor/edit_product.html', {'form': form, 'image_form': image_form, 'product': product})
-    
+
 # finally completed @Muskan Gupta
 @login_required
 def edit_vendor(request):
@@ -226,6 +226,37 @@ def edit_vendor(request):
     
     return render(request, 'vendor/edit_vendor.html', {'vendor':vendor})
     #return render(request, 'vendor/edit_vendor.html', {})
+
+def edit_customer(request):
+     customer = request.user.customer
+     if request.method == 'POST':
+        name = request.POST.get('name')
+        email = request.POST.get('email')
+        password = request.POST.get('password')
+        rpassword=request.POST.get('rpassword')
+        confirm_password=request.POST.get('confirm_password')
+        if password == customer.password:
+            
+            if rpassword==confirm_password:
+
+                #user_login(name,email,)
+                customer.created_by.delete()
+                user = User.objects.create_user(name, email, rpassword)
+                customer = Customer(name=name, email=email, password=rpassword, created_by=user)
+                customer.save()
+                #product.vendor=vendor
+                # for i in list1:
+                #     i.customer=customer
+                #     i.save()
+                #product.save()
+                logout(request)
+                return redirect('user_login')
+        else:
+            messages.error(request,"not saved")
+            #return redirect('vendor_admin')
+     return render(request, 'vendor/edit_customer.html', {'customer':customer})        
+
+
 
 def vendors(request):
     vendors = Vendor.objects.all()

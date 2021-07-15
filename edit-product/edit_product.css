@@ -145,6 +145,25 @@ body{
 .cancel-btn:hover{
     opacity: 0.8;
 }
+
+.delete-btn {
+    font-family: 'Open Sans', sans-serif;
+    font-size: 1rem;
+    text-transform: uppercase;
+    color: white;
+    background: #ff0000;
+    border: solid 1px #ff0000;
+    border-radius: 5px;
+    padding: 0.7rem 1.5rem;
+    cursor: pointer;
+    transition: all 0.4s ease;
+    margin-left: 148px;
+}
+
+.delete-btn:hover {
+    opacity: 0.8;
+}
+
 .contact-form ,.product-form > div img{
     width: 85%;
 }
