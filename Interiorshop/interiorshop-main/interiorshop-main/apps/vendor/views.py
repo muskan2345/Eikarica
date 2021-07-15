@@ -132,7 +132,9 @@ def add_product(request):
         product.price= request.POST.get('price')
         product.image=request.FILES.get('image')
         product.vendor = request.user.vendor
-        product.slug = slugify(product.title)
+       
+        str=product.title + "-" + product.vendor.name
+        product.slug = slugify(str)
         product.save()
         return redirect('vendor_admin')
         
