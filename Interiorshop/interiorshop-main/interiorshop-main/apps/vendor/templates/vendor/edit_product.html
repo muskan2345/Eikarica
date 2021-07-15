@@ -48,7 +48,7 @@
   <body>
     <h1 class="heading">Edit Product</h1>
     <div class = "product-form">
-          <form class="product" method="POST" action="{% url 'edit_product'  pk=form.instance.pk %}">
+          <form class="product" method="POST" action="{% url 'edit_product'  pk=form.instance.pk %}" enctype="multipart/form-data">
             {% csrf_token %}
             {{ form.as_p }}
             <div>
@@ -59,21 +59,20 @@
             </div>
             <div>
               <!-- <input type = "file" accept="image" class = "form-control" placeholder="Product image"> -->
-              <input type="file" accept="image" class = "form-control" name="image" id="img" style="display:none;" value="{{product.image}}"/>
-              <label for="img" class = "form-control file-upload-text"  >Click me to upload product image</label>
+              <input type="file" accept="image" class = "form-control" name="image" id="img" value="{{product.description}}" style="display:none;"/>
+              <label for="img" class = "form-control file-upload-text">Click me to upload product image</label>
               <input type = "number" class = "form-control" placeholder="Price" name="price" value="{{product.price}}">
               
             </div>
             <textarea rows = "5" placeholder="Product Details" class = "form-control" name="description"  value="{{product.description}}"></textarea>
             <input type = "submit" class = "send-btn" value = "Edit Product">
-            <input type = "submit"  action="{% url 'vendors'  %}"class = "cancel-btn" value = "Cancel">
-            <!-- <input type = "submit" class = "delete-btn" value = "Delete Product"> -->
-
-
           </form>
-
           <div>
             <img src ="{% static 'img/edit-product.svg' %}"  alt = "">
+          </div>
+          <div>
+            <a href="{% url 'vendors'  %}"><button class = "cancel-btn" name="done">Cancel</button></a>
+            <a href="{% url 'delete_product'  pk=form.instance.pk %}"><button class = "delete-btn">Delete Product</button></a>
           </div>
         </div>
 

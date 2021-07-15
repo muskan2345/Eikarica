@@ -145,6 +145,7 @@ def add_product(request):
 def edit_product(request,pk):
     vendor = request.user.vendor
     product = vendor.products.get(pk=pk) 
+    print(request.FILES.get('image'))
     if request.method == 'POST':
        
         print(product)
@@ -155,7 +156,9 @@ def edit_product(request,pk):
         product.title= request.POST.get('title')
         product.description= request.POST.get('description')
         product.price= request.POST.get('price')
-        product.image=request.FILES.get('image')
+        image=request.FILES.get('image')
+        if (image!=None):
+            product.image=image
         product.vendor =vendor
         product.slug = slugify(product.title)
         product.save()
@@ -163,40 +166,15 @@ def edit_product(request,pk):
     form = ProductForm(instance=product)    
     #return redirect('vendor_admin')
     return render(request, 'vendor/edit_product.html',{'form':form, 'product': product}) 
-  
 
-   
-
-   
-
-
-
-
-
-    # vendor = request.user.vendor
-    # product = vendor.products.get(pk=pk) 
-
-    # if request.method == 'POST':
-    #     form = ProductForm(request.POST, request.FILES, instance=product)
-
-    #     image_form = ProductImageForm(request.POST, request.FILES)
-
-    #     if image_form.is_valid():
-    #         productimage = image_form.save(commit=False)
-    #         productimage.product = product
-    #         productimage.save()
-
-    #         return redirect('vendor_admin')
-
-    #     if form.is_valid():
-    #         form.save()
-
-    #         return redirect('vendor_admin')
-    # else:
-    #     form = ProductForm(instance=product)
-    #     image_form = ProductImageForm()
-    
-    # return render(request, 'vendor/edit_product.html', {'form': form, 'image_form': image_form, 'product': product})
+@login_required
+def delete_product(request,pk):
+    print("hello delete")
+    vendor = request.user.vendor
+    product = vendor.products.get(pk=pk)
+    print(product)
+    product.delete()
+    return redirect('vendor_admin')
 
 # finally completed @Muskan Gupta
 @login_required
