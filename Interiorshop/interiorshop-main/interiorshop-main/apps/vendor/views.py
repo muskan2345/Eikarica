@@ -185,26 +185,26 @@ def edit_product(request, pk):
         image_form = ProductImageForm()
     
     return render(request, 'vendor/edit_product.html', {'form': form, 'image_form': image_form, 'product': product})
-
+    
+# finally completed @Muskan Gupta
 @login_required
 def edit_vendor(request):
     vendor = request.user.vendor
-    product = vendor.products.get() 
-    print(product)
+    product = vendor.products.all() 
+    print(type(product))
+    list1=list(product)
+    print(list1)
      #product=product.objects.all().values('vendor')
-    print("test00")
+   
     if request.method == 'POST':
         name = request.POST.get('name')
         email = request.POST.get('email')
         password = request.POST.get('password')
         rpassword=request.POST.get('rpassword')
         confirm_password=request.POST.get('confirm_password')
-        print(vendor.password)
-        print(rpassword)
-        print(confirm_password)
-        print(password)
+       
         if password == vendor.password:
-            print("test1")
+            
             if rpassword==confirm_password:
 
                 #user_login(name,email,)
@@ -212,9 +212,12 @@ def edit_vendor(request):
                 user = User.objects.create_user(name, email, rpassword)
                 vendor = Vendor(name=name, email=email, password=rpassword, created_by=user)
                 vendor.save()
-                product.vendor=vendor
-                print("test2")
-                product.save()
+                #product.vendor=vendor
+                
+                for i in list1:
+                    i.vendor=vendor
+                    i.save()
+                #product.save()
                 logout(request)
                 return redirect('user_login')
         else:
