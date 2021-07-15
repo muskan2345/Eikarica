@@ -124,14 +124,7 @@ def vendor_admin(request):
 def add_product(request):
     if request.method == 'POST':
         form = ProductForm(request.POST)
-        # if form.is_valid():
-        #     product = form.save(commit=False)
-        #     product.vendor = request.user.vendor
-        #     product.slug = slugify(product.title)
-        #     product.save()
-
-        #     return redirect('vendor_admin')
-        # if request.POST.get('category') and request.POST.get('title') and request.POST.get('description') and request.POST.get('price') and request.POST.get('image'):
+        
         product = form.save(commit=False)
             # product.category= request.POST.get('category')
         product.title= request.POST.get('title')
@@ -142,49 +135,66 @@ def add_product(request):
         product.slug = slugify(product.title)
         product.save()
         return redirect('vendor_admin')
-        #     messages.success(request,'record is saved' )
-        # else:
-        #     messages.success(request,'record is  not saved' )   
-        #     return redirect('vendor_admin')
-    # else:
-
-    #     form = ProductForm(request.POST)
-
-    #     if form.is_valid():
-    #         product = form.save(commit=False)
-    #         product.vendor = request.user.vendor
-    #         product.slug = slugify(product.title)
-    #         product.save()
-
-    #         return redirect('vendor_admin')
+        
     form = ProductForm()
     return render(request, 'vendor/add_product.html',{'form':form})
 
 @login_required
-def edit_product(request, pk):
+def edit_product(request,pk):
     vendor = request.user.vendor
     product = vendor.products.get(pk=pk) 
-
     if request.method == 'POST':
-        form = ProductForm(request.POST, request.FILES, instance=product)
-        image_form = ProductImageForm(request.POST, request.FILES)
+       
+        print(product)
+        form = ProductForm(request.POST,instance=product)
+        
+        product = form.save(commit=False)
+            # product.category= request.POST.get('category')
+        product.title= request.POST.get('title')
+        product.description= request.POST.get('description')
+        product.price= request.POST.get('price')
+        product.image=request.FILES.get('image')
+        product.vendor =vendor
+        product.slug = slugify(product.title)
+        product.save()
+        return redirect('vendor_admin')
+    form = ProductForm(instance=product)    
+    #return redirect('vendor_admin')
+    return render(request, 'vendor/edit_product.html',{'form':form, 'product': product}) 
+  
 
-        if image_form.is_valid():
-            productimage = image_form.save(commit=False)
-            productimage.product = product
-            productimage.save()
+   
 
-            return redirect('vendor_admin')
+   
 
-        if form.is_valid():
-            form.save()
 
-            return redirect('vendor_admin')
-    else:
-        form = ProductForm(instance=product)
-        image_form = ProductImageForm()
+
+
+
+    # vendor = request.user.vendor
+    # product = vendor.products.get(pk=pk) 
+
+    # if request.method == 'POST':
+    #     form = ProductForm(request.POST, request.FILES, instance=product)
+
+    #     image_form = ProductImageForm(request.POST, request.FILES)
+
+    #     if image_form.is_valid():
+    #         productimage = image_form.save(commit=False)
+    #         productimage.product = product
+    #         productimage.save()
+
+    #         return redirect('vendor_admin')
+
+    #     if form.is_valid():
+    #         form.save()
+
+    #         return redirect('vendor_admin')
+    # else:
+    #     form = ProductForm(instance=product)
+    #     image_form = ProductImageForm()
     
-    return render(request, 'vendor/edit_product.html', {'form': form, 'image_form': image_form, 'product': product})
+    # return render(request, 'vendor/edit_product.html', {'form': form, 'image_form': image_form, 'product': product})
 
 # finally completed @Muskan Gupta
 @login_required
