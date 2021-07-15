@@ -48,7 +48,7 @@ margin:10px 10px 10px 10px;
 }
 input[type="text"],
 input[type="email"],
-input[type="number"] {
+input[type="password"] {
 display: block;
 box-sizing: border-box;
 color:#20dbc2;
@@ -69,7 +69,7 @@ margin-top: 25px;
 }
 input[type="text"]:focus,
 input[type="email"]:focus,
-input[type="number"]:focus {
+input[type="password"]:focus {
 border-bottom: 2px solid #20dbc2;
 border-bottom-right-radius:20px;
 color: #20dbc2;
@@ -79,7 +79,7 @@ border-top: none;
 }
 
 
-button{
+.buttonstyle{
 border:1px solid #20dbc2;
 background-color:#20dbc2;
 color:white;
@@ -339,7 +339,7 @@ body{
 
 .heading {
     text-align: center;
-    color: #20dbc2;
+    color: black;
 }
 
 .product, .edit{
