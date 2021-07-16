@@ -23,12 +23,13 @@
             {{form.as_p}}
             <div>
               <input type = "text" class = "form-control" placeholder="Product Name" name="title">
+              <input type = "number" class = "form-control" placeholder="Product Quantity" name="quantity" value="1">
             </div>
             <div>
               <!-- <input type = "file" accept="image" class = "form-control" placeholder="Product image"> -->
               <input type="file" accept="image" class = "form-control" name="image" id="img" style="display:none;"/>
               <label for="img" class = "form-control file-upload-text">Click me to upload product image</label>
-              <input type = "Price" class = "form-control" placeholder="Price" name="price">
+              <input type = "number" class = "form-control" placeholder="Price" name="price">
             </div>
             <textarea rows = "5" placeholder="Product Details" class = "form-control" name="description"></textarea>
             <input type = "submit" class = "send-btn" value = "Add Product">

@@ -132,6 +132,7 @@ def add_product(request):
         product.price= request.POST.get('price')
         product.image=request.FILES.get('image')
         product.vendor = request.user.vendor
+        product.quantity = request.POST.get('quantity')
 
         str=product.title + "-" + product.vendor.name
         product.slug = slugify(str)
@@ -157,6 +158,7 @@ def edit_product(request,pk):
         product.description= request.POST.get('description')
         product.price= request.POST.get('price')
         image=request.FILES.get('image')
+        product.quantity = request.POST.get('quantity')
         if (image!=None):
             product.image=image
         product.vendor = vendor
