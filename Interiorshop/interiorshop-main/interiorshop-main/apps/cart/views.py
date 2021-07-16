@@ -8,10 +8,12 @@ from .cart import Cart
 from .forms import CheckoutForm
 
 from apps.order.utilities import checkout, notify_customer, notify_vendor
+from apps.vendor.models import Vendor, Customer
 
 def cart_detail(request):
-    cart = Cart(request)
-
+    if request.user.customer:
+        cart = Cart(request)
+    
     if request.method == 'POST':
         form = CheckoutForm(request.POST)
 

@@ -17,6 +17,7 @@ urlpatterns = [
     path('login/', views.user_login, name='user_login'),
     path('', views.vendors, name='vendors'),
     path('<int:vendor_id>/', views.vendor, name='vendor'),
+    path('vendor-admin/home/', frontpage, name='frontpage'),
 
 
 

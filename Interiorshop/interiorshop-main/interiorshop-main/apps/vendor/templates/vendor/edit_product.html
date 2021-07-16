@@ -55,7 +55,7 @@
 
               <!-- <input type = "text" class = "form-control" placeholder="Category"> -->
               <input type = "text" class = "form-control" placeholder="Product Name" name="title" value="{{product.title}}">
-              <input type = "number" class = "form-control" placeholder="Product Quantity" name="quantity">
+              <input type = "number" class = "form-control" placeholder="Product Quantity" name="quantity" value="{{product.quantity}}">
             </div>
             <div>
               <!-- <input type = "file" accept="image" class = "form-control" placeholder="Product image"> -->
@@ -66,12 +66,12 @@
             </div>
             <textarea rows = "5" placeholder="Product Details" class = "form-control" name="description"  value="{{product.description}}"></textarea>
             <input type = "submit" class = "send-btn" value = "Edit Product">
+            <a href="{% url 'vendors'  %}"><button class = "cancel-btn" name="done">Cancel</button></a>
           </form>
           <div>
             <img src ="{% static 'img/edit-product.svg' %}"  alt = "">
           </div>
           <div>
-            <a href="{% url 'vendors'  %}"><button class = "cancel-btn" name="done">Cancel</button></a>
             <a href="{% url 'delete_product'  pk=form.instance.pk %}"><button class = "delete-btn">Delete Product</button></a>
           </div>
         </div>
