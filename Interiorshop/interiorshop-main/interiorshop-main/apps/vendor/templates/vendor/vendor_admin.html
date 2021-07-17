@@ -3,20 +3,25 @@
 {% block title %}Vendor admin | {% endblock %}
 
 {% block content %}
+<head>
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Otomanopee+One&display=swap" rel="stylesheet">
+    </head>
+    <body>
     <div class="box">
-        <h1 class="title">Vendor admin - {{ vendor.name }}</h1>
-
+        <h1 class="title" style="font-family: 'Otomanopee One', sans-serif;">Welcome {{ vendor.name }}</h1>
         <strong>My balance: </strong> ₹ {{ vendor.get_balance }}<br>
         <strong>My paid amount: </strong>₹ {{ vendor.get_paid_amount }}
 
         <hr>
 
         <a href="{% url 'edit_vendor' %}" class="button is-info is-uppercase" name="loginid" value="vendor">Edit</a>
-        <a href="{% url 'logout' %}" class="button is-danger is-uppercase">Log out</a>
+        <!-- <a href="{% url 'user_logout' %}" class="button is-danger is-uppercase">Log out</a> -->
     </div>
 
     <div class="box">
-        <h2 class="is-size-3 mb-4">My products</h2>
+        <h2 class="is-size-3 mb-4">My Products</h2>
 
         <a href="{% url 'add_product' %}" class="button is-dark is-uppercase mb-6">Add product</a>
 
@@ -45,7 +50,7 @@
         {% endif %}
     </div>
 
-    <div class="box">
+    <!-- <div class="box">
         <h2 class="is-size-3 mb-4">My orders</h2>
     
         {% if orders %}
@@ -93,5 +98,6 @@
                 </div>
             {% endfor %}
         {% endif %}
-    </div>
+    </div> -->
+</body>
 {% endblock %}
