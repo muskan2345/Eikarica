@@ -2,8 +2,6 @@
 
 {% load static %}
 
-{% block title %}Edit Profile | {% endblock %}
-
 {% block content %}
 <!DOCTYPE html>
 <html>
@@ -20,14 +18,15 @@
 <style>
 body {
  
- background-color:#20dbc2;
+ background-color:white;
 }
 </style>
-    <h1 class="heading">Edit Profile</h1>
+    <h1 class="heading" style="font-size: xx-large; font-weight: bold;">Edit Profile</h1>
 <center>
+<div class="box">
   <form method="post" action="{% url 'edit_vendor' %}">
     {% csrf_token %}
-<div class="box">
+
 <img src="{% static 'images/edit.svg' %}" width="100%" height="100%">
 <input type="text" placeholder="User Name" value="{{ vendor.name }}" name="name" >
 <input type="Email" placeholder="Email ID" value="{{ vendor.created_by.email }}" name="email" >
@@ -35,62 +34,11 @@ body {
 <input type="password" placeholder="New Password" name="rpassword">
 <input type="password" placeholder="Confirm Password" name="confirm_password">
 <input type="submit" class="buttonclass" value="Save Profile">
-<a href="{% url 'vendor_admin' %}"><button class="buttonclass" name="done">Cancel</button></a>
-</div>
 </form>
+<br>
+<a href="{% url 'vendor_admin' %}"><button class="buttonclass">Cancel</button></a>
+</div>
 </center>
 </body>
-</html> 
-    <!-- <h1 class="title">Edit Password </h1>
- 
-    <form method="post" action="{% url 'edit_vendor' %}">
-        {% csrf_token %}
-
-    <div class="field">
-            <label>Vendor name</label>
-
-            <div class="control">
-                <input type="text" name="name" id="id_name" value="{{ vendor.name }}" class="input">
-            </div>
-
-           
-        </div>
-
-        <div class="field">
-            <label>E-mail</label>
-
-            <div class="control">
-                <input type="email" name="email" id="id_email" value="{{ vendor.created_by.email }}" class="input">
-            </div>
-        </div> 
-         <div class="field">
-            <label> Password</label>
-
-            <div class="control">
-                <input type="password" name="password" id="id_password"  class="input">
-            </div>
-        </div>
-        <div class="field">
-            <label> Change Password</label>
-
-            <div class="control">
-                <input type="password" name="rpassword" id="id_password"  class="input">
-            </div>
-        </div>    
-        <div class="field">
-            <label> Confirm Password</label>
-
-            <div class="control">
-                <input type="password" name="confirm_password" id="id_password"  class="input">
-            </div>
-        </div>      
-       
-       <!-- {{form.as_p}} -->
-        <!-- <div class="field">
-            <div class="control">
-                <input type="submit" class="button is-dark is-uppercase" value="save change" />
-            </div>
-        </div>
-        <a href="{% url 'logout' %}" class="button is-danger is-uppercase">Log out</a> -->
-    <!-- </form> -->
+</html>
 {% endblock %}

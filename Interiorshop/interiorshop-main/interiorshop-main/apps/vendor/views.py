@@ -100,6 +100,13 @@ def become_vendor(request):
     return render(request, 'vendor/login.html', {})
 
 @login_required
+def user_logout(request):
+    # Log out the user.
+    logout(request)
+    # Return to homepage.
+    return redirect('user_login')
+
+@login_required
 def vendor_admin(request):
     vendor = request.user.vendor
     products = vendor.products.all()
@@ -222,6 +229,8 @@ def edit_vendor(request):
     #return render(request, 'vendor/edit_vendor.html', {})
 
 def edit_customer(request):
+    if(request.user.vendor):
+        return redirect('vendor_admin')
     customer = request.user.customer
     if request.method == 'POST':
         name = request.POST.get('name')

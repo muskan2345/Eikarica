@@ -31,7 +31,7 @@
 		<div class="container">
 			<div class="row">
 				<div class="col-md-3 col-xs-2">
-					<div id="fh5co-logo"><a href="home"><img src="/static/images/W.png"  width="200" height="200"></a></div>
+					<div id="fh5co-logo"><a href="{% url 'frontpage' %}"><img src="/static/images/W.png"  width="200" height="200"></a></div>
 				</div>
 				<div class="col-md-6 col-xs-6 text-center menu-1">
 					<ul>
@@ -52,8 +52,8 @@
                         <li><a href="{% url 'about' %}">About</a>
 						</li>
 						<li><a href="{% url 'contact' %}">Contact</a></li>
-						<li><a href="{% url 'become_vendor' %}">SignIn/SignUp</a></li>
                         <li><a href="{% url 'edit_customer' %}">Profile</a></li>
+						<li><a href="{% url 'user_logout' %}">Logout</a></li>
 					</ul>
 				</div>
 				<div class="col-md-3 col-xs-4 text-right hidden-xs menu-2">
@@ -83,19 +83,31 @@
         
     </section>
 
-    <footer class="footer">
+	<div class = "contact-footer">
+        <h3>Follow Us</h3>
+        <div class = "social-links">
+          <a href = "#" class = "fab fa-facebook-f"></a>
+          <a href = "#" class = "fab fa-twitter"></a>
+          <a href = "#" class = "fab fa-instagram"></a>
+          <a href = "#" class = "fab fa-linkedin"></a>
+          <a href = "#" class = "fab fa-youtube"></a>
+        </div>
+      </div>
+    </section>
+
+    <!-- <footer class="footer">
 		<!-- <h3 class="is-size-4 mb-4">Eikarica</h3> -->
 	
-		{% if request.user.is_authenticated %}
+		<!-- {% if request.user.is_authenticated %}
 			<a href="{% url 'vendor_admin' %}">Vendor admin</a>
 		{% else %}
 		<a href="{% url 'vendors' %}">Vendors</a>
 			<!-- <a href="{% url 'become_vendor' %}">SignIn/SignUp</a> -->
-		{% endif %}
-		<br>
+		<!-- {% endif %} -->
+		<!-- <br> -->
 		<!-- <a href="{% url 'vendors' %}">Vendors</a> -->
-	</footer>
-
+	<!-- </footer> -->
+	{% block scripts %}
 	<!-- jQuery -->
 	<script src="{% static 'scripts/js/jquery.min.js' %}"></script>
 	<!-- jQuery Easing -->
@@ -113,7 +125,7 @@
 	<!-- Main -->
 	<script src="{% static 'scripts/js/main.js' %}"></script>
 
-	{% block scripts %}
+	
     {% endblock %}
     
 	
