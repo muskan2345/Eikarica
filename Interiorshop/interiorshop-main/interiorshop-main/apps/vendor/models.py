@@ -6,12 +6,23 @@ from django.db.models.fields import CharField
 from django.db.models.fields.files import ImageField
 
 class Vendor(models.Model):
+    #username of the vendor
     name = models.CharField(max_length=255)
+    #full name of the vendor as per documents
+    fullname = models.CharField(max_length=255, default='null')
     email = models.EmailField(unique=True, default='null')
     password = models.CharField(max_length=15)
     #rpassword=models.CharField(max_length=15,null=False)
     created_at = models.DateTimeField(auto_now_add=True)
     created_by = models.OneToOneField(User, related_name='vendor', on_delete=models.CASCADE)
+    gender = models.CharField(max_length=10, default='null')
+    dob = models.CharField(max_length=15, default='null')
+    nationality = models.CharField(max_length=100, default='null')
+    address = models.CharField(null=True, max_length=300, default='null')
+    mobile = models.IntegerField(default=0)
+    idType = models.CharField(max_length=100, default='null')
+    idFile = models.FileField(upload_to='kycDocuments/', blank=True, null=True)
+    verified = models.BooleanField(default=False)
 
     USERNAME_FIELD = 'name'
 

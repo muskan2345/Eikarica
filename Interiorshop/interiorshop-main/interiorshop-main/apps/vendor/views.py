@@ -33,14 +33,17 @@ def user_login(request,*args,**kwargs):
 
         # If we have a user
         if loginid == "vendor":
+            vendor = user.request.vendor
             if user:
                 #Check it the account is active
                 if user.is_active:
                     # Log the user in.
                     login(request,user)
+                    if(vendor.verified==True):
+                        return redirect('vendor_admin')
+                    return redirect('vendor_kyc')
                     # Send the user back to some page.
                     # In this case their homepage.
-                    return redirect('vendor_admin')
                     #return HttpResponseRedirect(reverse('core/frontpage.html'))
                 else:
                     # If account is not active:
@@ -88,7 +91,9 @@ def become_vendor(request):
             #     return HttpResponse("Invalid signup details supplied.")
             vendor.save()
             login(request, user)
-            return redirect('add_product')
+            # if(vendor.verified==True):
+            #     return redirect('add_product')
+            return redirect('vendor_kyc')
         else:
             cus= User.objects.create_user(name, email, password)
             customer = Customer(name=name, email=email, password=password, created_by=cus)
@@ -98,6 +103,27 @@ def become_vendor(request):
             return redirect('vendors')
 
     return render(request, 'vendor/login.html', {})
+
+@login_required
+def vendor_kyc(request):
+    vendor=request.user.vendor
+    if request.method == 'POST':
+        vendor.fullname = request.POST.get('name')
+        vendor.gender = request.POST.get('gender')
+        vendor.dob = request.POST.get('dob')
+        address1 = request.POST.get('address1')
+        address2 = request.POST.get('address2')
+        address3 = request.POST.get('address3')
+        address4 = request.POST.get('address4')
+        address5 = request.POST.get('address5')
+        vendor.nationality = request.POST.get('nationality')
+        vendor.mobile = request.POST.get('phone')
+        vendor.idtype = request.POST.get('idtype')
+        vendor.idfile = request.FILES.get('fileToUpload')
+        vendor.address = address1 + ", " + address2 + ", " + address3 + ", " + address4 + ", " + address5
+        vendor.save()
+        return redirect('add_product')
+    return render(request, 'vendor/vendor_kyc.html', {'vendor':vendor})
 
 @login_required
 def user_logout(request):
