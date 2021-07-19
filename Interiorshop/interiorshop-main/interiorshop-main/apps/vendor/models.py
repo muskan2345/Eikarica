@@ -3,7 +3,7 @@ from django.contrib.auth.forms import PasswordChangeForm
 from django.contrib.auth.models import User
 from django.db import models
 from django.db.models.fields import CharField
-from django.db.models.fields.files import ImageField
+from django.db.models.fields.files import ImageField, FileField
 
 class Vendor(models.Model):
     #username of the vendor

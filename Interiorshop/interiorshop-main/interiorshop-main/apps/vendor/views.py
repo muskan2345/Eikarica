@@ -33,11 +33,14 @@ def user_login(request,*args,**kwargs):
 
         # If we have a user
         if loginid == "vendor":
-            vendor = user.request.vendor
+            # vendor = user.request.vendor
             if user:
                 #Check it the account is active
                 if user.is_active:
                     # Log the user in.
+
+                    vendor = user.vendor
+
                     login(request,user)
                     if(vendor.verified==True):
                         return redirect('vendor_admin')
@@ -118,11 +121,11 @@ def vendor_kyc(request):
         address5 = request.POST.get('address5')
         vendor.nationality = request.POST.get('nationality')
         vendor.mobile = request.POST.get('phone')
-        vendor.idtype = request.POST.get('idtype')
-        vendor.idfile = request.FILES.get('fileToUpload')
+        vendor.idType = request.POST.get('idtype')
+        vendor.idFile = request.FILES.get('fileToUpload')
         vendor.address = address1 + ", " + address2 + ", " + address3 + ", " + address4 + ", " + address5
         vendor.save()
-        return redirect('add_product')
+        return redirect('vendor_admin')
     return render(request, 'vendor/vendor_kyc.html', {'vendor':vendor})
 
 @login_required
