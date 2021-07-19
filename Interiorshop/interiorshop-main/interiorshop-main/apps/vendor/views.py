@@ -33,18 +33,15 @@ def user_login(request,*args,**kwargs):
 
         # If we have a user
         if loginid == "vendor":
-            # vendor = user.request.vendor
             if user:
                 #Check it the account is active
                 if user.is_active:
                     # Log the user in.
 
-                    vendor = user.vendor
-
                     login(request,user)
-                    if(vendor.verified==True):
-                        return redirect('vendor_admin')
-                    return redirect('vendor_kyc')
+                    # if(vendor.verified==True):
+                    #     return redirect('vendor_admin')
+                    return redirect('vendor_admin')
                     # Send the user back to some page.
                     # In this case their homepage.
                     #return HttpResponseRedirect(reverse('core/frontpage.html'))
@@ -111,6 +108,7 @@ def become_vendor(request):
 def vendor_kyc(request):
     vendor=request.user.vendor
     if request.method == 'POST':
+        print(request.FILES.get('document'))
         vendor.fullname = request.POST.get('name')
         vendor.gender = request.POST.get('gender')
         vendor.dob = request.POST.get('dob')
@@ -122,7 +120,7 @@ def vendor_kyc(request):
         vendor.nationality = request.POST.get('nationality')
         vendor.mobile = request.POST.get('phone')
         vendor.idType = request.POST.get('idtype')
-        vendor.idFile = request.FILES.get('fileToUpload')
+        vendor.idFile = request.FILES.get('document')
         vendor.address = address1 + ", " + address2 + ", " + address3 + ", " + address4 + ", " + address5
         vendor.save()
         return redirect('vendor_admin')
@@ -158,6 +156,9 @@ def vendor_admin(request):
 
 @login_required
 def add_product(request):
+    vendor=request.user.vendor
+    if(vendor.verified==False):
+        return redirect('vendor_admin')
     if request.method == 'POST':
         form = ProductForm(request.POST)
         

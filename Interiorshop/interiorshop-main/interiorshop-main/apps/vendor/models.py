@@ -21,7 +21,7 @@ class Vendor(models.Model):
     address = models.CharField(null=True, max_length=300, default='null')
     mobile = models.IntegerField(default=0)
     idType = models.CharField(max_length=100, default='null')
-    idFile = models.FileField(upload_to='kycDocuments/', blank=True, null=True)
+    idFile = models.FileField(upload_to='uploads/', blank=True, null=True)
     verified = models.BooleanField(default=False)
 
     USERNAME_FIELD = 'name'

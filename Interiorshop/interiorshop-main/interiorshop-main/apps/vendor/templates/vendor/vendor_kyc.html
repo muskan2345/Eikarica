@@ -12,7 +12,7 @@
     <center><img src="{% static 'images/W.png' %}" height=180px,width=180px></center>
     <div class="container">
      
-    <form action="{% url 'vendor_kyc' %}" method="POST">
+    <form action="{% url 'vendor_kyc' %}" method="POST" enctype="multipart/form-data">
         {% csrf_token %}
        
         
@@ -537,7 +537,7 @@
     <h4> File Upload <span style="color: #20dbc2 !important; display: inline; float: none;">*</span> </h4>
     <!-- <form action="upload.php" method="post" enctype="multipart/form-data"> -->
       Upload your Documents here:
-      <input type="file"  name="fileToUpload" id="fileToUpload">
+      <input type="file" name="document" id="fileToUpload">
     
     <!-- </form> -->
     <hr>

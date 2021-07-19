@@ -9,6 +9,13 @@
         <link href="https://fonts.googleapis.com/css2?family=Otomanopee+One&display=swap" rel="stylesheet">
     </head>
     <body>
+    <div>
+        {% if vendor.verified %}
+            <p style="color:green">KYC verified!</p>
+        {% else %}
+        <p style="color:red">KYC verification pending!</p>
+        {% endif %}
+    </div>
     <div class="box">
         <h1 class="title" style="font-family: 'Otomanopee One', sans-serif;">Welcome {{ vendor.name }}</h1>
         <strong>My balance: </strong> ₹ {{ vendor.get_balance }}<br>
