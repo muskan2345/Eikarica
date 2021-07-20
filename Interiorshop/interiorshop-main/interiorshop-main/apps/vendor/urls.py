@@ -18,6 +18,7 @@ urlpatterns = [
     path('', views.vendors, name='vendors'),
     path('<int:vendor_id>/', views.vendor, name='vendor'),
     path('vendor-admin/home/', frontpage, name='frontpage'),
+    path('vendor-kyc/', views.vendor_kyc, name='vendor_kyc'),
 
 
 
