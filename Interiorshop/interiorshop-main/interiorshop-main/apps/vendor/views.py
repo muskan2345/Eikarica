@@ -145,6 +145,12 @@ def vendor_admin(request):
     products = vendor.products.all()
     orders = vendor.orders.all()
 
+#   This will be completed by @Hridyanshu
+    
+    # if vendor.verified==False:
+    #     return
+
+
     for order in orders:
         order.vendor_amount = 0
         order.vendor_paid_amount = 0
