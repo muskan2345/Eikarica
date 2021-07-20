@@ -49,9 +49,8 @@ def user_login(request,*args,**kwargs):
                     # If account is not active:
                     return HttpResponse("Your account is not active.")
             else:
-                print("Someone tried to login and failed.")
-                print("They used username: {} and password: {}".format(username,password))
-                return HttpResponse("Invalid login details supplied.")
+                messages.error(request,'username or password not correct')
+                return redirect('user_login')
         else:
             if user:
                 #Check it the account is active
@@ -66,11 +65,8 @@ def user_login(request,*args,**kwargs):
                     # If account is not active:
                     return HttpResponse("Your account is not active.")
             else:
-                print("Someone tried to login and failed.")
-                print("They used username: {} and password: {}".format(username,password))
-                return HttpResponse("Invalid login details supplied.")
-
-
+                messages.error(request,'username or password not correct')
+                return redirect('user_login')
     else:
         #Nothing has been provided for username or password.
         return render(request, 'vendor/login.html', {})
@@ -82,26 +78,36 @@ def become_vendor(request):
         loginid = request.POST.get('loginid')
         # password2 = request.POST.get('confirm_password')
         name = request.POST.get('username')
-        if loginid == "vendor":
-            # raw_password = password1
-            user = User.objects.create_user(name, email, password)
-            vendor = Vendor(name=name, email=email, password=password, created_by=user)
-            # if User.objects.filter(name = name).first():
-            #     messages.error(request, "This username is already taken")
-            #     return HttpResponse("Invalid signup details supplied.")
-            vendor.save()
-            login(request, user)
-            # if(vendor.verified==True):
-            #     return redirect('add_product')
-            return redirect('vendor_kyc')
-        else:
-            cus= User.objects.create_user(name, email, password)
-            customer = Customer(name=name, email=email, password=password, created_by=cus)
-            
-            customer.save()
-            login(request,cus)
-            return redirect('vendors')
-
+        try:
+            User.objects.get(username=name)
+            messages.error(request,'Username is already taken')
+            return redirect('become_vendor')
+        except:
+            try:
+                User.objects.get(email=email)
+                messages.error(request,'Email is already taken')
+                return redirect('become_vendor')
+                # return render(request, 'vendor/login.html#sign-up', {})
+            except:
+                if loginid == "vendor":
+                    # raw_password = password1
+                    user = User.objects.create_user(name, email, password)
+                    vendor = Vendor(name=name, email=email, password=password, created_by=user)
+                    # if User.objects.filter(name = name).first():
+                    #     messages.error(request, "This username is already taken")
+                    #     return HttpResponse("Invalid signup details supplied.")
+                    vendor.save()
+                    login(request, user)
+                    # if(vendor.verified==True):
+                    #     return redirect('add_product')
+                    return redirect('vendor_kyc')
+                else:
+                    cus= User.objects.create_user(name, email, password)
+                    customer = Customer(name=name, email=email, password=password, created_by=cus)
+                    
+                    customer.save()
+                    login(request,cus)
+                    return redirect('vendors')
     return render(request, 'vendor/login.html', {})
 
 @login_required

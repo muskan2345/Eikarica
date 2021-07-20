@@ -37,7 +37,7 @@
 <p>Date of Birth: <span style="color: #20dbc2 !important; display: inline; float: none;">*</span>  <input type="date" name="dob" id="dob" required></p>
 &nbsp;
 <p>Nationality: <span style="color: #20dbc2 !important; display: inline; float: none;">*</span> 
-    <select name="nationality">
+    <select name="nationality" required>
     <option value="">-- select one --</option>
     <option value="afghan">Afghan</option>
     <option value="albanian">Albanian</option>
@@ -235,19 +235,19 @@
   <hr>
   <h2>Address Details</h2>
   &nbsp;
-<p>HouseNo./Street/Locality: <input type="text" name="address1"></p>
+<p>HouseNo./Street/Locality: <input type="text" name="address1" required></p>
 &nbsp;
-<p>City:  <input type="text" name="address2"  ></p>
+<p>City:  <input type="text" name="address2" required></p>
 &nbsp;
-<p>State/Province:  <input type="text" name="address3"></p>
+<p>State/Province:  <input type="text" name="address3" required></p>
 &nbsp;
-<p> Postal/Zip Code: <input type="number" name="address4" id="posatal code"></p>
+<p> Postal/Zip Code: <input type="number" name="address4" id="posatal code" required></p>
 &nbsp;
 <div>
 <label for="country">Country</label><span style="color: #20dbc2 !important; display: inline; float: none;">*</span>   
   
         
-            <select  id="country" name="address5" class="form-control">
+            <select  id="country" name="address5" class="form-control" required>
 
                 <option value="">-- select one --</option>
                 <option value="Afghanistan">Afghanistan</option>
@@ -499,7 +499,7 @@
           &nbsp;
       <p>
   <label for="phone">Enter your phone number:</label>
-  <input type="tel" id="phone" name="phone" >
+  <input type="number" id="phone" name="phone" required>
 </div>
 </p>
 &nbsp;
@@ -529,7 +529,7 @@
       <label for="e">Latest Bank Account Statement/Passbook</label><br>
     </p>
     <p class="ff">
-      <input type="radio" id="f" name="idtype" value="Other">
+      <input type="radio" id="f" name="idtype" value="Other" checked>
       <label for="f">Other</label><br><br>
     </p>
     <!-- </form> -->
@@ -537,7 +537,7 @@
     <h4> File Upload <span style="color: #20dbc2 !important; display: inline; float: none;">*</span> </h4>
     <!-- <form action="upload.php" method="post" enctype="multipart/form-data"> -->
       Upload your Documents here:
-      <input type="file" name="document" id="fileToUpload">
+      <input type="file" name="document" id="fileToUpload" required>
     
     <!-- </form> -->
     <hr>
