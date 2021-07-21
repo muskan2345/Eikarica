@@ -45,12 +45,12 @@
         <div class = "contact-form">
           <form action="https://formspree.io/f/xpzkjbzr" method="post">
             <div>
-              <input type = "text" class = "form-control" placeholder="First Name">
-              <input type = "text" class = "form-control" placeholder="Last Name">
+              <input type = "text"  name="first"class = "form-control" placeholder="First Name" required>
+              <input type = "text"  name="last" class = "form-control" placeholder="Last Name"required>
             </div>
             <div>
-              <input type = "email" class = "form-control" placeholder="E-mail">
-              <input type = "text" class = "form-control" placeholder="Phone">
+              <input type = "email" name="email" class = "form-control" placeholder="E-mail"required>
+              <input type = "text" name="phone" class = "form-control" placeholder="Phone"required>
             </div>
             <textarea rows = "5" placeholder="Message" class = "form-control"></textarea>
             <input type = "submit" class = "send-btn" value = "send message">
