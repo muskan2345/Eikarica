@@ -58,7 +58,7 @@ INSTALLED_APPS = [
     'apps.core',
     'apps.order',
     'apps.product',
-    'apps.vendor'
+    'apps.vendor',
 ]
 
 MIDDLEWARE = [
@@ -85,11 +85,13 @@ TEMPLATES = [
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
                 'apps.product.context_processors.menu_categories',
-                'apps.cart.context_processors.cart'
+                'apps.cart.context_processors.cart',
             ],
         },
     },
 ]
+
+
 
 WSGI_APPLICATION = 'interiorshop.wsgi.application'
 
